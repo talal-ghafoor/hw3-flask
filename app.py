@@ -14,5 +14,7 @@ def index():
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('SELECT VERSION();')
+    x=cur.fetchone()
+    return render_template('index.html', database_version=x[0])
     # return render_template('index.html')
-    return render_template('index.html')
+    # return s
