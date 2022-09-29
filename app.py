@@ -1,7 +1,18 @@
-from flask import Flask
+import os
+import psycopg2
+from flask import Flask, render_template
+
 app = Flask(__name__)
+
+def get_db_connection():
+    conn = psycopg2.connect("postgres://postgres:password@db-hw3.cahemnsyz5yw.us-east-2.rds.amazonaws.com:5432/postgres")
+    return conn
+
 
 @app.route('/')
 def index():
-    return 'Rohan Panchal\'s HW3'
-
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT VERSION();')
+    # return render_template('index.html')
+    return render_template('index.html')
